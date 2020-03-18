@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import '~/config/ReactotronConfig';
 
 import { store, persistor } from './store';
-import Routes from './routes';
+import App from './App';
 
 // import { Container } from './styles';
 
@@ -17,8 +17,8 @@ export default function src() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
-          <StatusBar barStyle="light-content" backgroundColor="#FFF" />
-          <Routes />
+          <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
+          <App />
         </NavigationContainer>
       </PersistGate>
     </Provider>
