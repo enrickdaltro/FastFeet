@@ -7,18 +7,21 @@ import api from '~/services/api';
 
 export function* signIn({ payload }) {
   try {
-    const { email, password } = payload;
+    const { email } = payload;
 
-    const response = yield call(api.post, 'sessions', { email, password });
+    const response = yield call(api.post, 'sessiondeliveryman', { email });
 
-    const { token, user } = response.data;
+    const { token, deliveryman } = response.data;
 
-    if (user.provider === 'true') {
-      Alert.alert('Erro no login', 'O usuário não pode ser prestador');
+    if (deliveryman.provider === 'false') {
+      Alert.alert(
+        'Erro no login',
+        'O usuário precisa ser um entregador cadastrado!',
+      );
       return;
     }
 
-    yield put(signInSuccess(token, user));
+    yield put(signInSuccess(token, deliveryman));
   } catch (err) {
     Alert.alert('Falha na autenticação', 'Verifique seus dados.');
 
