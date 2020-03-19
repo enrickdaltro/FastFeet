@@ -41,6 +41,14 @@ export default function Profile() {
     dispatch(signOut());
   }
 
+  const formattedData = format(
+    parseISO(deliverymans.created_at),
+    "dd'/'MM'/'yyyy",
+    {
+      locale: pt,
+    },
+  );
+
   return (
     <Container>
       <Content>
@@ -60,7 +68,7 @@ export default function Profile() {
           <Email>{deliverymans.email}</Email>
 
           <FullDate>Data de cadastro</FullDate>
-          <Date>{deliverymans.created_at}</Date>
+          <Date>{formattedData}</Date>
 
           <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
         </Info>
