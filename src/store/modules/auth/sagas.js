@@ -11,6 +11,8 @@ export function* signIn({ payload }) {
 
     const response = yield call(api.post, 'sessiondeliveryman', { email });
 
+    console.tron.log(response.data);
+
     const { token, deliveryman } = response.data;
 
     if (deliveryman.provider === 'false') {
