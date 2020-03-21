@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -41,13 +41,11 @@ export default function Profile() {
     dispatch(signOut());
   }
 
-  const formattedData = format(
-    parseISO(deliverymans.created_at),
-    "dd'/'MM'/'yyyy",
-    {
+  const formattedData = useMemo(() => {
+    return format(parseISO(deliverymans.created_at), "dd'/'MM'/'yyyy", {
       locale: pt,
-    },
-  );
+    });
+  }, [deliverymans.created_at]);
 
   return (
     <Container>

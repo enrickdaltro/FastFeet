@@ -5,15 +5,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '~/services/api';
 
+import { signOut } from '~/store/modules/auth/actions';
+
 import {
   Container,
   Content,
   Header,
   Image,
+  HeaderContent,
   HeaderText,
   Label,
   Name,
-  Exit,
 } from './styles';
 
 export default function Dashboard() {
@@ -21,7 +23,7 @@ export default function Dashboard() {
 
   const [deliverymans, setDeliverymans] = useState(profile);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadDeliveryman() {
@@ -31,6 +33,10 @@ export default function Dashboard() {
     }
     loadDeliveryman();
   }, [profile.id]);
+
+  function handleLogout() {
+    dispatch(signOut());
+  }
 
   return (
     <Container>
@@ -44,16 +50,15 @@ export default function Dashboard() {
             }}
           />
 
-          <HeaderText>
-            <Label>Bem vindo de volta,</Label>
-            <Name>{deliverymans.name}</Name>
-          </HeaderText>
-
-          <Exit>
-            <TouchableOpacity>
-              <Icon name="exit-to-app" size={24} color="#E74040" />
-            </TouchableOpacity>
-          </Exit>
+          <HeaderContent>
+            <HeaderText>
+              <Label>Bem vindo de volta,</Label>
+              <Name>{deliverymans.name}</Name>
+            </HeaderText>
+          </HeaderContent>
+          <TouchableOpacity onPress={handleLogout}>
+            <Icon name="exit-to-app" size={24} color="#E74040" />
+          </TouchableOpacity>
         </Header>
       </Content>
     </Container>
