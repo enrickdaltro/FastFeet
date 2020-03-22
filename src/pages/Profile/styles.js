@@ -18,7 +18,6 @@ export const Image = styled.Image`
   width: 150px;
   border-radius: 75px;
   margin: 20px 0 50px;
-  border: 1px solid #eee;
 `;
 
 export const Info = styled.View`

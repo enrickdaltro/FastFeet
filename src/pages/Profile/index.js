@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { parseISO, format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { format, parseISO } from 'date-fns';
+import { pt } from 'date-fns/locale/pt';
 
 import api from '~/services/api';
 
@@ -24,7 +24,8 @@ import {
 export default function Profile() {
   const profile = useSelector(state => state.deliveryman.profile);
 
-  const [deliverymans, setDeliverymans] = useState(profile);
+  const [deliverymans, setDeliverymans] = useState([]);
+  const [created, setCreated] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -33,19 +34,20 @@ export default function Profile() {
       const response = await api.get(`deliveryman/${profile.id}`);
 
       setDeliverymans(response.data);
+      setCreated(
+        format(parseISO(response.data.created_at), 'dd/MM/yyyy', {
+          locale: pt,
+        }),
+      );
     }
     loadDeliveryman();
   }, [profile.id]);
 
+  console.tron.log(created);
+
   function handleLogout() {
     dispatch(signOut());
   }
-
-  const formattedData = useMemo(() => {
-    return format(parseISO(deliverymans.created_at), "dd'/'MM'/'yyyy", {
-      locale: pt,
-    });
-  }, [deliverymans.created_at]);
 
   return (
     <Container>
@@ -66,7 +68,7 @@ export default function Profile() {
           <Email>{deliverymans.email}</Email>
 
           <FullDate>Data de cadastro</FullDate>
-          <Date>{formattedData}</Date>
+          <Date>{created}</Date>
 
           <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
         </Info>
