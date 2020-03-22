@@ -1,46 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Card from '../Card';
 
-import {
-  Container,
-  Header,
-  HeaderTitle,
-  Progress,
-  Footer,
-  Column,
-  FooterLabel,
-  FooterContent,
-  Button,
-  ButtonText,
-} from './styles';
+import api from '~/services/api';
+
+import { List } from './styles';
 
 export default function DeliveryCard() {
+  const profile = useSelector(state => state.deliveryman.profile);
+
+  const [deliverys, setDeliverys] = useState([]);
+
+  useEffect(() => {
+    async function loadDeliverys() {
+      const response = await api.get(`/delivery/${profile.id}`);
+
+      setDeliverys(response.data);
+    }
+
+    loadDeliverys();
+  }, [profile.id]);
+
   return (
-    <Container>
-      <Header>
-        <Icon name="local-shipping" size={30} color="#7d40e7" />
-        <HeaderTitle>Encomenda</HeaderTitle>
-      </Header>
-
-      <Progress></Progress>
-
-      <Footer>
-        <Column>
-          <FooterLabel>Data</FooterLabel>
-          <FooterContent>15/08/1996</FooterContent>
-        </Column>
-        <Column>
-          <FooterLabel>Cidade</FooterLabel>
-          <FooterContent>Salvador</FooterContent>
-        </Column>
-        <Column>
-          <Button>
-            <ButtonText>Ver Detalhes</ButtonText>
-          </Button>
-        </Column>
-      </Footer>
-    </Container>
+    <List
+      data={deliverys}
+      keyExtractor={item => String(item.id)}
+      renderItem={({ item }) => <Card data={item} />}
+    />
   );
 }
