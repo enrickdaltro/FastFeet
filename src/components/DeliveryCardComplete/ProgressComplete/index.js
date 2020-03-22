@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Container, List, Content, Step, Circle, Name } from './styles';
 
-export default function ProgressBar({ data }) {
+export default function ProgressComplete({ data }) {
   const [progress, setProgress] = useState([
     { key: 1, label: 'Aguardando', active: true },
     { key: 2, label: 'Retirada', active: false },
@@ -11,18 +11,11 @@ export default function ProgressBar({ data }) {
 
   useEffect(() => {
     async function loadStatus() {
-      if (data.created_at && !data.start_date && !data.end_date) {
-        setProgress([
-          { key: 1, label: 'Aguardando', active: true },
-          { key: 2, label: 'Retirada', active: false },
-          { key: 3, label: 'Entregue', active: false },
-        ]);
-      }
-      if (data.start_date && !data.end_date) {
+      if (data.start_date && data.end_date) {
         setProgress([
           { key: 1, label: 'Aguardando', active: true },
           { key: 2, label: 'Retirada', active: true },
-          { key: 3, label: 'Entregue', active: false },
+          { key: 3, label: 'Entregue', active: true },
         ]);
       }
     }

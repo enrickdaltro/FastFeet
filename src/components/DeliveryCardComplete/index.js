@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import Card from './Card';
+import CardComplete from './CardComplete';
 
 import api from '~/services/api';
 
 import { List } from './styles';
 
-export default function DeliveryCard() {
+export default function DeliveryCardComplete() {
   const profile = useSelector(state => state.deliveryman.profile);
 
   const [deliverys, setDeliverys] = useState([]);
@@ -26,7 +26,7 @@ export default function DeliveryCard() {
     <List
       data={deliverys}
       keyExtractor={item => String(item.id)}
-      renderItem={({ item }) => <Card data={item} />}
+      renderItem={({ item }) => <CardComplete data={item} />}
     />
   );
 }

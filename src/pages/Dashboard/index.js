@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '~/services/api';
 
 import DeliveryCard from '~/components/DeliveryCard';
+import DeliveryCardComplete from '~/components/DeliveryCardComplete';
 
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -40,6 +41,7 @@ export default function Dashboard() {
       const response = await api.get(`deliveryman/${profile.id}`);
 
       setDeliverymans(response.data);
+      console.tron.log(response.data);
     }
     loadDeliveryman();
   }, [profile.id]);
@@ -98,7 +100,7 @@ export default function Dashboard() {
           </Right>
         </Title>
 
-        <DeliveryCard />
+        {active ? <DeliveryCard /> : <DeliveryCardComplete />}
       </Content>
     </Container>
   );
