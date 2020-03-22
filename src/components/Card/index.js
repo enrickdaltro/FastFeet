@@ -8,7 +8,6 @@ import {
   Container,
   Header,
   HeaderTitle,
-  Progress,
   Footer,
   Column,
   FooterLabel,
@@ -16,6 +15,8 @@ import {
   Button,
   ButtonText,
 } from './styles';
+
+import ProgressBar from '../ProgressBar';
 
 export default function Card({ data }) {
   const formattedDate = format(parseISO(data.start_date), 'dd/MM/yyyy', {
@@ -30,7 +31,7 @@ export default function Card({ data }) {
         <HeaderTitle>Encomenda {data.id}</HeaderTitle>
       </Header>
 
-      <Progress></Progress>
+      <ProgressBar data={data} />
 
       <Footer>
         <Column>
