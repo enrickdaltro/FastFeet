@@ -19,11 +19,11 @@ import {
 import ProgressBar from '../ProgressBar';
 
 export default function Card({ data }) {
-  const formattedDate = format(parseISO(data.start_date), 'dd/MM/yyyy', {
+  console.tron.log(data);
+  const formattedDate = format(parseISO(data.created_at), 'dd/MM/yyyy', {
     locale: pt,
   });
 
-  console.tron.log(formattedDate);
   return (
     <Container>
       <Header>

@@ -43,8 +43,6 @@ export default function Profile() {
     loadDeliveryman();
   }, [profile.id]);
 
-  console.tron.log(created);
-
   function handleLogout() {
     dispatch(signOut());
   }
