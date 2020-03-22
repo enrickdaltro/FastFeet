@@ -1,4 +1,6 @@
 import React from 'react';
+import { format, parseISO } from 'date-fns';
+import { pt } from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -16,6 +18,11 @@ import {
 } from './styles';
 
 export default function Card({ data }) {
+  const formattedDate = format(parseISO(data.start_date), 'dd/MM/yyyy', {
+    locale: pt,
+  });
+
+  console.tron.log(formattedDate);
   return (
     <Container>
       <Header>
@@ -28,7 +35,7 @@ export default function Card({ data }) {
       <Footer>
         <Column>
           <FooterLabel>Data</FooterLabel>
-          <FooterContent>15/08/1996</FooterContent>
+          <FooterContent>{formattedDate}</FooterContent>
         </Column>
         <Column>
           <FooterLabel>Cidade</FooterLabel>

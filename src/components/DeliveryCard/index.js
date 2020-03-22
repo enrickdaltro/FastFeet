@@ -17,6 +17,7 @@ export default function DeliveryCard() {
       const response = await api.get(`/delivery/${profile.id}`);
 
       setDeliverys(response.data);
+      console.tron.log(response.data);
     }
 
     loadDeliverys();
