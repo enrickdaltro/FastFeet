@@ -1,11 +1,11 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Dashboard from '~/pages/Dashboard';
 import DeliveryDetails from '~/pages/Details/DeliveryDetails';
+import Problems from '~/pages/Details/Problems';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +28,17 @@ export default function DeliveryStack() {
         component={DeliveryDetails}
         options={{
           headerTitle: 'Detalhes da encomenda',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Problems"
+        component={Problems}
+        options={{
+          headerTitle: 'Informar um problema',
           headerTitleStyle: {
             fontWeight: 'bold',
           },

@@ -26,8 +26,12 @@ import {
   ButtonText,
 } from './styles';
 
-export default function DeliveryDetails({ route }) {
+export default function DeliveryDetails({ route, navigation }) {
   const { data } = route.params;
+
+  function handleAddProblem(data) {
+    navigation.navigate('Problems', { data });
+  }
 
   return (
     <Container>
@@ -98,7 +102,7 @@ export default function DeliveryDetails({ route }) {
 
           <Box>
             <ButtonBoxLeft>
-              <Button>
+              <Button onPress={() => handleAddProblem(data)}>
                 <Icon name="report-problem" size={26} color="#E74040" />
                 <ButtonLabel>
                   <ButtonText>Informar Problema</ButtonText>
