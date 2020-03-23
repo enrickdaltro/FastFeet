@@ -33,6 +33,10 @@ export default function DeliveryDetails({ route, navigation }) {
     navigation.navigate('Problems', { data });
   }
 
+  function handleViewProblems(data) {
+    navigation.navigate('ViewProblems', { data });
+  }
+
   return (
     <Container>
       <BackgroundPurple>
@@ -111,7 +115,7 @@ export default function DeliveryDetails({ route, navigation }) {
             </ButtonBoxLeft>
 
             <ButtonBoxCenter>
-              <Button>
+              <Button onPress={() => handleViewProblems(data)}>
                 <Icon name="info-outline" size={26} color="#e7ba40" />
                 <ButtonLabel>
                   <ButtonText>Visualizar Problemas</ButtonText>

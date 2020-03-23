@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Dashboard from '~/pages/Dashboard';
 import DeliveryDetails from '~/pages/Details/DeliveryDetails';
 import Problems from '~/pages/Details/Problems';
+import ViewProblems from '~/pages/Details/ViewProblems';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,17 @@ export default function DeliveryStack() {
         component={Problems}
         options={{
           headerTitle: 'Informar um problema',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="ViewProblems"
+        component={ViewProblems}
+        options={{
+          headerTitle: 'Visualizar problemas',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
