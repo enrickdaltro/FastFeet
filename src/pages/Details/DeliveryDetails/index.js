@@ -1,4 +1,6 @@
 import React from 'react';
+import { format, parseISO } from 'date-fns';
+import { pt } from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,7 +27,7 @@ import {
 } from './styles';
 
 export default function DeliveryDetails({ route }) {
-  const { id } = route.params;
+  const { data } = route.params;
 
   return (
     <Container>
@@ -39,13 +41,17 @@ export default function DeliveryDetails({ route }) {
 
             <CardContent>
               <ContentLabel>DESTINATÁRIO</ContentLabel>
-              <ContentText>Joao</ContentText>
+              <ContentText>{data.recipient.name}</ContentText>
 
               <ContentLabel>ENDEREÇO DE ENTREGA</ContentLabel>
-              <ContentText>Joao</ContentText>
+              <ContentText>
+                {data.recipient.street}, {data.recipient.number},{' '}
+                {data.recipient.city} - {data.recipient.state},{' '}
+                {data.recipient.zipcode}
+              </ContentText>
 
               <ContentLabel>PRODUTO</ContentLabel>
-              <ContentText>Joao</ContentText>
+              <ContentText>{data.product}</ContentText>
             </CardContent>
           </Card>
 
@@ -56,17 +62,35 @@ export default function DeliveryDetails({ route }) {
             </CardHeader>
 
             <CardContent>
-              <ContentLabel>DESTINATÁRIO</ContentLabel>
-              <ContentText>Joao</ContentText>
+              <ContentLabel>STATUS</ContentLabel>
+              <ContentText>
+                {data.start_date && !data.end_date
+                  ? 'A caminho do destinatário'
+                  : !data.start_date && !data.end_date && !data.canceled_at
+                  ? 'Pendente'
+                  : 'Entregue'}
+              </ContentText>
 
               <Dates>
                 <DateStart>
                   <ContentLabel>DATA DE RETIRADA</ContentLabel>
-                  <ContentText>Joao</ContentText>
+                  <ContentText>
+                    {data.start_date
+                      ? format(parseISO(data.start_date), 'dd/MM/yyyy', {
+                          locale: pt,
+                        })
+                      : '--/--/----'}
+                  </ContentText>
                 </DateStart>
                 <DateStart>
-                  <ContentLabel>DATA DE DESTINATÁRIO</ContentLabel>
-                  <ContentText>Joao</ContentText>
+                  <ContentLabel>DATA DE ENTREGA</ContentLabel>
+                  <ContentText>
+                    {data.end_date
+                      ? format(parseISO(data.end_date), 'dd/MM/yyyy', {
+                          locale: pt,
+                        })
+                      : '--/--/----'}
+                  </ContentText>
                 </DateStart>
               </Dates>
             </CardContent>

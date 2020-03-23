@@ -23,8 +23,8 @@ export default function Card({ data, navigation }) {
     locale: pt,
   });
 
-  function handleDetail(id) {
-    navigation.navigate('DeliveryDetails', { id });
+  function handleDetail(data) {
+    navigation.navigate('DeliveryDetails', { data });
   }
 
   return (
@@ -49,7 +49,7 @@ export default function Card({ data, navigation }) {
                 <FooterContent>{data.recipient.city}</FooterContent>
               </Column>
               <Column>
-                <TouchableOpacity onPress={() => handleDetail(data.id)}>
+                <TouchableOpacity onPress={() => handleDetail(data)}>
                   <ButtonText>Ver Detalhes</ButtonText>
                 </TouchableOpacity>
               </Column>
