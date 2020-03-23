@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import SignIn from '~/pages/SignIn';
 
-import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
 
 import DeliveryStack from './stack.routes';

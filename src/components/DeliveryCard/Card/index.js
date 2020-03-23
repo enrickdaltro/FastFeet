@@ -23,6 +23,10 @@ export default function Card({ data, navigation }) {
     locale: pt,
   });
 
+  function handleDetail(id) {
+    navigation.navigate('DeliveryDetails', { id });
+  }
+
   return (
     <>
       {!data.end_date ? (
@@ -45,10 +49,7 @@ export default function Card({ data, navigation }) {
                 <FooterContent>{data.recipient.city}</FooterContent>
               </Column>
               <Column>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('DeliveryDetails');
-                  }}>
+                <TouchableOpacity onPress={() => handleDetail(data.id)}>
                   <ButtonText>Ver Detalhes</ButtonText>
                 </TouchableOpacity>
               </Column>
