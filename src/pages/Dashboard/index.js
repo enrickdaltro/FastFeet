@@ -103,7 +103,7 @@ export default function Dashboard({ navigation }) {
         {active ? (
           <DeliveryCard navigation={navigation} />
         ) : (
-          <DeliveryCardComplete />
+          <DeliveryCardComplete navigation={navigation} />
         )}
       </Content>
     </Container>

@@ -18,10 +18,14 @@ import {
 
 import ProgressComplete from '../ProgressComplete';
 
-export default function CardComplete({ data }) {
+export default function CardComplete({ data, navigation }) {
   const formattedDate = format(parseISO(data.created_at), 'dd/MM/yyyy', {
     locale: pt,
   });
+
+  function handleDetail(data) {
+    navigation.navigate('DeliveryDetails', { data });
+  }
 
   return (
     <>
@@ -45,7 +49,7 @@ export default function CardComplete({ data }) {
                 <FooterContent>{data.recipient.city}</FooterContent>
               </Column>
               <Column>
-                <Button>
+                <Button onPress={() => handleDetail(data)}>
                   <ButtonText>Ver Detalhes</ButtonText>
                 </Button>
               </Column>
