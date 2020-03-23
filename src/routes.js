@@ -9,6 +9,8 @@ import SignIn from '~/pages/SignIn';
 import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
 
+import DeliveryStack from './stack.routes';
+
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
@@ -32,7 +34,7 @@ export default function createRouter(isSigned = false) {
       }}>
       <Tabs.Screen
         name="Dashboard"
-        component={Dashboard}
+        component={DeliveryStack}
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: ({ color }) => (

@@ -27,7 +27,7 @@ import {
   AsideTextRight,
 } from './styles';
 
-export default function Dashboard() {
+export default function Dashboard({ navigation }) {
   const profile = useSelector(state => state.deliveryman.profile);
 
   const [deliverymans, setDeliverymans] = useState(profile);
@@ -100,7 +100,11 @@ export default function Dashboard() {
           </Right>
         </Title>
 
-        {active ? <DeliveryCard /> : <DeliveryCardComplete />}
+        {active ? (
+          <DeliveryCard navigation={navigation} />
+        ) : (
+          <DeliveryCardComplete />
+        )}
       </Content>
     </Container>
   );

@@ -7,7 +7,7 @@ import api from '~/services/api';
 
 import { List } from './styles';
 
-export default function DeliveryCard() {
+export default function DeliveryCard({ navigation }) {
   const profile = useSelector(state => state.deliveryman.profile);
 
   const [deliverys, setDeliverys] = useState([]);
@@ -26,7 +26,7 @@ export default function DeliveryCard() {
     <List
       data={deliverys}
       keyExtractor={item => String(item.id)}
-      renderItem={({ item }) => <Card data={item} />}
+      renderItem={({ item }) => <Card data={item} navigation={navigation} />}
     />
   );
 }

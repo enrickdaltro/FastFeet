@@ -46,8 +46,6 @@ export const FooterContent = styled.Text`
   margin-top: 3px;
 `;
 
-export const Button = styled.TouchableOpacity``;
-
 export const ButtonText = styled.Text`
   color: #7d40e7;
   font-weight: bold;
