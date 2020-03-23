@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 
-import Input from '~/components/Input';
-import Button from '~/components/Button';
+import api from '~/services/api';
 
 import {
   Container,
@@ -14,15 +14,29 @@ import {
 
 export default function Problems({ route }) {
   const { data } = route.params;
+  const [description, setDescription] = useState('');
+
+  async function handleSubmit() {
+    await api.post(`/delivery/problems/${data.id}`, {
+      description,
+    });
+    Alert.alert('Problema informado com sucesso.');
+  }
 
   return (
     <Container>
       <BackgroundPurple>
         <Content>
           <Form>
-            <TInput placeholder="Inclua aqui o problema que ocorreu na entrega." />
+            <TInput
+              name="description"
+              value={description}
+              onSubmitEditing={handleSubmit}
+              onChangeText={setDescription}
+              placeholder="Inclua aqui o problema que ocorreu na entrega."
+            />
 
-            <SubmitButton>Enviar</SubmitButton>
+            <SubmitButton onPress={handleSubmit}>Enviar</SubmitButton>
           </Form>
         </Content>
       </BackgroundPurple>
