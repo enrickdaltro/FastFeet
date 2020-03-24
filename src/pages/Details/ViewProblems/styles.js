@@ -16,17 +16,28 @@ export const Content = styled.SafeAreaView`
   margin: 100px 30px 0;
 `;
 
-export const Title = styled.View``;
-export const HeaderText = styled.Text``;
+export const Title = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+export const HeaderText = styled.Text`
+  font-size: 22px;
+  color: #fff;
+  font-weight: bold;
+`;
 
-export const List = styled.FlatList`
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})`
   position: absolute;
   width: 100%;
+  margin-top: 40px;
 `;
 export const Card = styled.View`
   margin-top: 15px;
   background: #fff;
-  border: 1px solid #eee;
+  border: 2px solid #eee;
   border-radius: 4px;
   padding: 20px;
   flex-direction: row;
