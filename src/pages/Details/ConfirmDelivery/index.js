@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-
+import { Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import api from '~/services/api';
 
 import {
   Container,
@@ -12,9 +14,12 @@ import {
   Camera,
   SubmitButton,
   TakePhoto,
+  TakeAgain,
 } from './styles';
 
-export default function ConfirmDelivery() {
+export default function ConfirmDelivery({ route, navigation }) {
+  const { data } = route.params;
+
   const [camera, setCamera] = useState(null);
   const [file, setFile] = useState(null);
 
@@ -23,11 +28,38 @@ export default function ConfirmDelivery() {
       const options = {
         quality: 0.5,
         base64: false,
-        width: 800,
       };
-      const data = await camera.takePictureAsync(options);
+      const dataPhoto = await camera.takePictureAsync(options);
 
-      setFile(data);
+      setFile(dataPhoto);
+    }
+  }
+
+  async function handleTakeOtherPicture() {
+    setFile(null);
+  }
+
+  async function handleSubmit() {
+    if (file) {
+      const dataFile = new FormData();
+      dataFile.append('file', {
+        uri: file.uri,
+        name: 'signature.jpg',
+        type: 'image/jpeg',
+      });
+
+      const response = await api.post('/files', dataFile);
+
+      const { id } = response.data;
+
+      await api.put(`/delivery/${data.id}`, {
+        signature_id: id,
+        end_date: new Date(),
+      });
+
+      navigation.navigate('Dashboard');
+    } else {
+      Alert.alert('É necessário uma foto da assinatura do destinatário.');
     }
   }
 
@@ -36,7 +68,12 @@ export default function ConfirmDelivery() {
       <BackgroundPurple />
       <Content>
         {file ? (
-          <Thumbnail source={{ uri: file.uri }} />
+          <>
+            <Thumbnail source={{ uri: file.uri }} />
+            <TakeAgain onPress={handleTakeOtherPicture}>
+              <Icon name="close" size={40} color="#aaa" />
+            </TakeAgain>
+          </>
         ) : (
           <>
             <Thumbnail>
@@ -61,7 +98,7 @@ export default function ConfirmDelivery() {
             </Thumbnail>
           </>
         )}
-        <SubmitButton>Enviar</SubmitButton>
+        <SubmitButton onPress={handleSubmit}>Enviar</SubmitButton>
       </Content>
     </Container>
   );

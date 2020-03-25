@@ -63,3 +63,14 @@ export const SubmitButton = styled(Button)`
   top: 450px;
   width: 90%;
 `;
+
+export const TakeAgain = styled.TouchableHighlight`
+  top: 330px;
+  background: #666;
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+`;
