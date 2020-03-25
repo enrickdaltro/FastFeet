@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import EmptyCard from '~/components/EmptyCard';
+
 import api from '~/services/api';
 import {
   Container,
@@ -38,20 +42,27 @@ export default function ViewProblems({ route }) {
           <Title>
             <HeaderText>Encomenda {data.id}</HeaderText>
           </Title>
-          <List
-            data={problems}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => (
-              <Card>
-                <Problem>{item.description}</Problem>
-                <Date>
-                  {format(parseISO(item.updatedAt), 'dd/MM/yyyy', {
-                    locale: pt,
-                  })}
-                </Date>
-              </Card>
-            )}
-          />
+
+          {problems.length < 1 ? (
+            <>
+              <EmptyCard>Nenhum problema informado</EmptyCard>
+            </>
+          ) : (
+            <List
+              data={problems}
+              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => (
+                <Card>
+                  <Problem>{item.description}</Problem>
+                  <Date>
+                    {format(parseISO(item.updatedAt), 'dd/MM/yyyy', {
+                      locale: pt,
+                    })}
+                  </Date>
+                </Card>
+              )}
+            />
+          )}
         </Content>
       </BackgroundPurple>
     </Container>
