@@ -41,7 +41,7 @@ export const Name = styled.Text`
 `;
 
 export const Title = styled.View`
-  margin: 20px 0;
+  margin-top: 20px;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;

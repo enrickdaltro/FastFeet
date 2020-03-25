@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '~/services/api';
@@ -33,15 +33,18 @@ export default function Dashboard({ navigation }) {
   const [deliverymans, setDeliverymans] = useState(profile);
   const [active, setActive] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadDeliveryman() {
+      setLoading(true);
+
       const response = await api.get(`deliveryman/${profile.id}`);
 
       setDeliverymans(response.data);
-      console.tron.log(response.data);
+      setLoading(false);
     }
     loadDeliveryman();
   }, [profile.id]);
@@ -100,10 +103,16 @@ export default function Dashboard({ navigation }) {
           </Right>
         </Title>
 
-        {active ? (
-          <DeliveryCard navigation={navigation} />
+        {loading ? (
+          <ActivityIndicator size={30} />
         ) : (
-          <DeliveryCardComplete navigation={navigation} />
+          <>
+            {active ? (
+              <DeliveryCard navigation={navigation} />
+            ) : (
+              <DeliveryCardComplete navigation={navigation} />
+            )}
+          </>
         )}
       </Content>
     </Container>
