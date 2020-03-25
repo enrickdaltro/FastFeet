@@ -37,6 +37,10 @@ export default function DeliveryDetails({ route, navigation }) {
     navigation.navigate('ViewProblems', { data });
   }
 
+  async function handleConfirm(data) {
+    navigation.navigate('ConfirmDelivery', { data });
+  }
+
   return (
     <Container>
       <BackgroundPurple>
@@ -124,7 +128,7 @@ export default function DeliveryDetails({ route, navigation }) {
             </ButtonBoxCenter>
 
             <ButtonBoxRight>
-              <Button>
+              <Button onPress={() => handleConfirm(data)}>
                 <Icon name="check" size={26} color="#7d40e7" />
                 <ButtonLabel>
                   <ButtonText>Confirmar Entrega</ButtonText>

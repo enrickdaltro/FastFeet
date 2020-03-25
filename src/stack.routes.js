@@ -7,6 +7,7 @@ import Dashboard from '~/pages/Dashboard';
 import DeliveryDetails from '~/pages/Details/DeliveryDetails';
 import Problems from '~/pages/Details/Problems';
 import ViewProblems from '~/pages/Details/ViewProblems';
+import ConfirmDelivery from '~/pages/Details/ConfirmDelivery';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,17 @@ export default function DeliveryStack() {
         component={ViewProblems}
         options={{
           headerTitle: 'Visualizar problemas',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="ConfirmDelivery"
+        component={ConfirmDelivery}
+        options={{
+          headerTitle: 'Confirmar Entrega',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
