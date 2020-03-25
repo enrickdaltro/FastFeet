@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '~/services/api';
@@ -28,6 +29,7 @@ import {
 } from './styles';
 
 export default function Dashboard({ navigation }) {
+  const isFocused = useIsFocused();
   const profile = useSelector(state => state.deliveryman.profile);
 
   const [deliverymans, setDeliverymans] = useState(profile);
@@ -46,8 +48,10 @@ export default function Dashboard({ navigation }) {
       setDeliverymans(response.data);
       setLoading(false);
     }
-    loadDeliveryman();
-  }, [profile.id]);
+    if (isFocused) {
+      loadDeliveryman();
+    }
+  }, [profile.id, isFocused]);
 
   function handleLogout() {
     dispatch(signOut());

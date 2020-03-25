@@ -14,6 +14,7 @@ export default function DeliveryCard({ navigation }) {
 
   const [deliverys, setDeliverys] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     async function loadDeliverys() {
@@ -28,7 +29,7 @@ export default function DeliveryCard({ navigation }) {
     }
 
     loadDeliverys();
-  }, [profile.id]);
+  }, [profile.id, page]);
 
   return (
     <>

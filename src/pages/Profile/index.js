@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { ActivityIndicator } from 'react-native';
 import { format, parseISO } from 'date-fns';
 import { pt } from 'date-fns/locale/pt';
 
@@ -26,19 +27,24 @@ export default function Profile() {
 
   const [deliverymans, setDeliverymans] = useState([]);
   const [created, setCreated] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadDeliveryman() {
+      setLoading(true);
       const response = await api.get(`deliveryman/${profile.id}`);
 
-      setDeliverymans(response.data);
-      setCreated(
-        format(parseISO(response.data.created_at), 'dd/MM/yyyy', {
-          locale: pt,
-        }),
-      );
+      setTimeout(() => {
+        setDeliverymans(response.data);
+        setCreated(
+          format(parseISO(response.data.created_at), 'dd/MM/yyyy', {
+            locale: pt,
+          }),
+        );
+        setLoading(false);
+      }, 1500);
     }
     loadDeliveryman();
   }, [profile.id]);
@@ -48,29 +54,41 @@ export default function Profile() {
   }
 
   return (
-    <Container>
-      <Content>
-        <Image
-          source={{
-            uri: deliverymans.avatar
-              ? deliverymans.avatar.url
-              : `https://api.adorable.io/avatars/285/${deliverymans.name}.png`,
-          }}
-        />
+    <>
+      <Container>
+        <Content>
+          {loading ? (
+            <ActivityIndicator size={30} />
+          ) : (
+            <>
+              {loading ? (
+                <Content />
+              ) : (
+                <Image
+                  source={{
+                    uri: deliverymans.avatar
+                      ? deliverymans.avatar.url
+                      : `https://api.adorable.io/avatars/285/${deliverymans.name}.png`,
+                  }}
+                />
+              )}
 
-        <Info>
-          <FullName>Nome Completo</FullName>
-          <Name>{deliverymans.name}</Name>
+              <Info>
+                <FullName>Nome Completo</FullName>
+                <Name>{deliverymans.name}</Name>
 
-          <FullEmail>Email</FullEmail>
-          <Email>{deliverymans.email}</Email>
+                <FullEmail>Email</FullEmail>
+                <Email>{deliverymans.email}</Email>
 
-          <FullDate>Data de cadastro</FullDate>
-          <Date>{created}</Date>
+                <FullDate>Data de cadastro</FullDate>
+                <Date>{created}</Date>
 
-          <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
-        </Info>
-      </Content>
-    </Container>
+                <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
+              </Info>
+            </>
+          )}
+        </Content>
+      </Container>
+    </>
   );
 }
